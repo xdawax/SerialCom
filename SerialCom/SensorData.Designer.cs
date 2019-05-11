@@ -61,6 +61,7 @@
             this.buttonDoor.TabIndex = 2;
             this.buttonDoor.Text = "Door";
             this.buttonDoor.UseVisualStyleBackColor = true;
+            this.buttonDoor.Click += new System.EventHandler(this.buttonDoor_Click);
             // 
             // buttonTemp
             // 

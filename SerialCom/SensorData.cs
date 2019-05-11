@@ -8,6 +8,9 @@ namespace SerialCom
 
     public partial class SensorData : Form
     {
+        private const int REED = 0;
+        private const int TEMP = 1;
+
         private Main mainForm = null;
         public SensorData()
         {
@@ -41,17 +44,21 @@ namespace SerialCom
 
         private void buttonAll_Click(object sender, EventArgs e)
         {
-            // visa data för samtliga element i kön
-            richTextBoxhSensorData.Clear();
             List<Packet> packetList = new List<Packet>();
-            packetList = SensorDataAccess.LoadAll();
+            packetList = SensorDataAccess.ListAll();
+            displayPacketList(packetList);
+        }
 
+        public void displayPacketList(List<Packet> packetList)
+        {
+            richTextBoxhSensorData.Clear();
             if (packetList.Count > 0)
             {
                 richTextBoxhSensorData.AppendText("The database contains the following packets: \n");
 
                 foreach (Packet packet in packetList)
                 {
+                    Packet dePack = packet;
                     displayPacketContent(packet);
                 }
             }
@@ -67,10 +74,10 @@ namespace SerialCom
 
             switch (packet.Type)
             {
-                case 0:
+                case Packet.Sensor_t.REED:
                     sens = "REED";
                     break;
-                case 1:
+                case Packet.Sensor_t.TEMP:
                     sens = "TEMP";
                     break;
                 default:
@@ -86,7 +93,16 @@ namespace SerialCom
 
         private void buttonTemp_Click(object sender, EventArgs e)
         {
+            List<Packet> packetList = new List<Packet>();
+            packetList = SensorDataAccess.ListSensorTypeData(TEMP);
+            displayPacketList(packetList);
+        }
 
+        private void buttonDoor_Click(object sender, EventArgs e)
+        {
+            List<Packet> packetList = new List<Packet>();
+            packetList = SensorDataAccess.ListSensorTypeData(REED);
+            displayPacketList(packetList);
         }
     }
 }

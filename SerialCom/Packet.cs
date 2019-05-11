@@ -8,8 +8,8 @@
             TEMP                    // the data is read as centidegrees celcius i.e. 3275 == 32.75 deg C
         };
 
-        public int Address { get; set; }
-        public int Type { get; set; }
+        public byte Address { get; set; }
+        public Sensor_t Type { get; set; }
         public int Data { get; set; }
 
 

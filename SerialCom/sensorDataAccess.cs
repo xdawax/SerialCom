@@ -9,7 +9,7 @@ namespace SerialCom
 {
     public class SensorDataAccess
     {
-        public static List<Packet> LoadAll()
+        public static List<Packet> ListAll()
         {
             // failsafe, closes the db if crashed or we reach the end of brackets
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -19,11 +19,20 @@ namespace SerialCom
             }
         }
 
-        public static List<Packet> GetSensorData(int sensorAddress)
+        public static List<Packet> ListSensorData(int sensorAddress)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Packet>("select Data from Sensor where Address = " + sensorAddress, new DynamicParameters());
+                var output = cnn.Query<Packet>("select * from Sensor where Address = " + sensorAddress, new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static List<Packet> ListSensorTypeData(int sensorType)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Packet>("select * from Sensor where Type = " + sensorType, new DynamicParameters());
                 return output.ToList();
             }
         }

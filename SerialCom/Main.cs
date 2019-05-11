@@ -58,7 +58,7 @@ namespace SerialCom
             Packet packet = new Packet();
 
             packet.Address = buf[BUF_ADDRESS];
-            packet.Type = buf[BUF_TYPE];
+            packet.Type = (Packet.Sensor_t)buf[BUF_TYPE];
 
             packet.Data = BitConverter.ToInt32(buf, BUF_DATA0);
 
@@ -71,10 +71,10 @@ namespace SerialCom
 
             switch (packet.Type)
             {
-                case REED:
+                case Packet.Sensor_t.REED:
                     sens = "REED";
                     break;
-                case TEMP:
+                case Packet.Sensor_t.TEMP:
                     sens = "TEMP";
                     break;
                 default:
@@ -105,7 +105,7 @@ namespace SerialCom
             // visa data för samtliga element i kön
             richTextBoxRX.Clear();
             List<Packet> packetList = new List<Packet>();
-            packetList = SensorDataAccess.LoadAll();
+            packetList = SensorDataAccess.ListAll();
 
             if (packetList.Count > 0)
             {
