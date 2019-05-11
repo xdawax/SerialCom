@@ -16,19 +16,6 @@ namespace SerialCom
 
     public partial class Main : Form
     {
-        public enum Sensor_t
-        {   // 1 byte if < 256 sensors
-            REED,                   // the data can be read from the reed_data enum
-            TEMP                    // the data is read as centidegrees celcius i.e. 3275 == 32.75 deg C
-        };
-        public struct Packet_t
-        {
-            public byte address;
-            public Sensor_t type;
-            public uint data;
-            //time_stamp_t  time_stamp;		// TODO
-        };
-
         private static int BUF_ADDRESS = 0;
         private static int BUF_TYPE = 1;
         private static int BUF_DATA0 = 2;
@@ -83,26 +70,26 @@ namespace SerialCom
 
         private void handleData(byte[] buf)
         {
-            Packet_t packet;
+            Packet packet = new Packet();
 
-            packet.address = buf[BUF_ADDRESS];
-            packet.type = (Sensor_t)buf[BUF_TYPE];
+            packet.Address = buf[BUF_ADDRESS];
+            packet.Type = (Packet.Sensor_t)buf[BUF_TYPE];
 
-            packet.data = (uint)BitConverter.ToInt32(buf, BUF_DATA0);
+            packet.Data = (uint)BitConverter.ToInt32(buf, BUF_DATA0);
 
             packetQueue.Enqueue(packet);
         }
 
-        private void displayPacketContent(Packet_t packet)
+        private void displayPacketContent(Packet packet)
         {
             string sens;
 
-            switch (packet.type)
+            switch (packet.Type)
             {
-                case Sensor_t.REED:
+                case Packet.Sensor_t.REED:
                     sens = "REED";
                     break;
-                case Sensor_t.TEMP:
+                case Packet.Sensor_t.TEMP:
                     sens = "TEMP";
                     break;
                 default:
@@ -111,9 +98,9 @@ namespace SerialCom
             }
 
             richTextBoxRX.AppendText("Packet contents: \n");
-            richTextBoxRX.AppendText("Address: " + (packet.address).ToString() + "\n");
+            richTextBoxRX.AppendText("Address: " + (packet.Address).ToString() + "\n");
             richTextBoxRX.AppendText("Type: " + sens + "\n");
-            richTextBoxRX.AppendText("Data: " + (packet.data).ToString() + "\n");
+            richTextBoxRX.AppendText("Data: " + (packet.Data).ToString() + "\n");
         }
 
         private string bufToString(byte[] buf)
@@ -137,7 +124,7 @@ namespace SerialCom
             {
                 richTextBoxRX.AppendText("The queue contains the following packets: \n");
 
-                foreach (Packet_t packet in packetQueue)
+                foreach (Packet packet in packetQueue)
                 {
                     displayPacketContent(packet);
                 }
