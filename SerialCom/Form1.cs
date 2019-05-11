@@ -78,17 +78,11 @@ namespace SerialCom
         private void handleData(byte[] buf)
         {
             Packet_t packet;
-            uint data = 0;
 
             packet.address = buf[BUF_ADDRESS];
             packet.type = (Sensor_t)buf[BUF_TYPE];
 
-            // Little endian representation, shift into right position
-            data |= (uint)(buf[BUF_DATA0] >> (3 * 8));
-            data |= (uint)(buf[BUF_DATA1] >> (1 * 8));
-            data |= (uint)(buf[BUF_DATA2] << (1 * 8));
-            data |= (uint)(buf[BUF_DATA3] << (3 * 8));
-            packet.data = data;
+            packet.data = (uint)BitConverter.ToInt32(buf, BUF_DATA0);
 
             packetQueue.Enqueue(packet);
         }
