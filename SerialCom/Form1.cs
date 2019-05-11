@@ -50,16 +50,6 @@ namespace SerialCom
             InitializeComponent();
 
             populateComPorts();
-
-            if (!mySerialPort.IsOpen)
-            {
-                mySerialPort.Open();
-                richTextBoxRX.Text = "Serial port is open :)";
-            } 
-            else
-            {
-                richTextBoxRX.Text = "Serial port is busy :(";
-            }
         }
 
         private void populateComPorts()
@@ -78,7 +68,8 @@ namespace SerialCom
             byte received = 0;
             byte[] rxBuf = new byte[255];
 
-            for (int i = 0; i < packetSize; i++) { 
+            for (int i = 0; i < packetSize; i++)
+            {
                 received = (byte)mySerialPort.ReadByte();
                 rxBuf[i] = received;
             }
@@ -143,10 +134,12 @@ namespace SerialCom
             {
                 richTextBoxRX.AppendText("The queue contains the following packets: \n");
 
-                foreach (Packet_t packet in packetQueue) {
+                foreach (Packet_t packet in packetQueue)
+                {
                     displayPacketContent(packet);
                 }
-            } else
+            }
+            else
             {
                 richTextBoxRX.AppendText("There is nothing in the queue!!");
             }
@@ -185,15 +178,26 @@ namespace SerialCom
 
         private void listBoxComPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            comPort = listBoxComPorts.SelectedItem.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonSelectCom_Click(object sender, EventArgs e)
         {
+            string port = comPort;
             if (comPort == "UNDEFINED")
             {
-                System.Windows.Forms.MessageBox.Show("No com port selected!");
+                MessageBox.Show("No com port selected!");
+            }
+            else
+            {
+                if (mySerialPort.IsOpen)
+                {
+                    mySerialPort.Close();
+                }
+                mySerialPort.PortName = comPort;
+                mySerialPort.Open();
             }
         }
     }
+
 }

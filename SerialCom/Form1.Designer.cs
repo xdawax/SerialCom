@@ -37,7 +37,7 @@
             this.mySerialPort = new System.IO.Ports.SerialPort(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxComPorts = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSelectCom = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSend
@@ -90,7 +90,7 @@
             // mySerialPort
             // 
             this.mySerialPort.BaudRate = 38400;
-            this.mySerialPort.PortName = "COM17";
+            this.mySerialPort.PortName = "UNDEFINED";
             this.mySerialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.mySerialPort_DataReceived);
             // 
             // label1
@@ -111,22 +111,22 @@
             this.listBoxComPorts.TabIndex = 6;
             this.listBoxComPorts.SelectedIndexChanged += new System.EventHandler(this.listBoxComPorts_SelectedIndexChanged);
             // 
-            // button1
+            // buttonSelectCom
             // 
-            this.button1.Location = new System.Drawing.Point(640, 385);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSelectCom.Location = new System.Drawing.Point(640, 385);
+            this.buttonSelectCom.Name = "buttonSelectCom";
+            this.buttonSelectCom.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectCom.TabIndex = 7;
+            this.buttonSelectCom.Text = "Connect";
+            this.buttonSelectCom.UseVisualStyleBackColor = true;
+            this.buttonSelectCom.Click += new System.EventHandler(this.buttonSelectCom_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonSelectCom);
             this.Controls.Add(this.listBoxComPorts);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxIM);
@@ -153,7 +153,7 @@
         private System.IO.Ports.SerialPort mySerialPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxComPorts;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSelectCom;
     }
 }
 
