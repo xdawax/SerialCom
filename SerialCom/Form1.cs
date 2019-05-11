@@ -89,16 +89,31 @@ namespace SerialCom
             data |= (uint)(buf[BUF_DATA2] << (1 * 8));
             data |= (uint)(buf[BUF_DATA3] << (3 * 8));
             packet.data = data;
-        }
 
-        private void enqueueData(byte[] buf)
-        {
-
+            packetQueue.Enqueue(packet);
         }
 
         private void displayPacketContent(Packet_t packet)
         {
+            string sens;
 
+            switch (packet.type)
+            {
+                case Sensor_t.REED:
+                    sens = "REED";
+                    break;
+                case Sensor_t.TEMP:
+                    sens = "TEMP";
+                    break;
+                default:
+                    sens = "UNDEFINED";
+                    break;
+            }
+
+            richTextBoxRX.AppendText("Packet contents: \n");
+            richTextBoxRX.AppendText("Address: " + (packet.address).ToString() + "\n");
+            richTextBoxRX.AppendText("Type: " + sens + "\n");
+            richTextBoxRX.AppendText("Data: " + (packet.data).ToString() + "\n");
         }
 
         private string bufToString(byte[] buf)
@@ -115,8 +130,20 @@ namespace SerialCom
 
         private void displayText(object o, EventArgs e)
         {
-            //string bitString = bufToString(rxBuf);
-            //richTextBoxRX.AppendText(bitString);
+            // visa data för samtliga element i kön
+            richTextBoxRX.Clear();
+
+            if (packetQueue.Count > 0)
+            {
+                richTextBoxRX.AppendText("The queue contains the following packets: \n");
+
+                foreach (Packet_t packet in packetQueue) {
+                    displayPacketContent(packet);
+                }
+            } else
+            {
+                richTextBoxRX.AppendText("There is nothing in the queue!!");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
