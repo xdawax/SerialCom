@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.buttonBack = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxhSensorData = new System.Windows.Forms.RichTextBox();
             this.buttonDoor = new System.Windows.Forms.Button();
             this.buttonTemp = new System.Windows.Forms.Button();
+            this.buttonAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonBack
@@ -44,13 +45,13 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
-            // richTextBox1
+            // richTextBoxhSensorData
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(132, 26);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(639, 402);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.richTextBoxhSensorData.Location = new System.Drawing.Point(132, 26);
+            this.richTextBoxhSensorData.Name = "richTextBoxhSensorData";
+            this.richTextBoxhSensorData.Size = new System.Drawing.Size(639, 402);
+            this.richTextBoxhSensorData.TabIndex = 1;
+            this.richTextBoxhSensorData.Text = "";
             // 
             // buttonDoor
             // 
@@ -69,15 +70,27 @@
             this.buttonTemp.TabIndex = 3;
             this.buttonTemp.Text = "Temperature";
             this.buttonTemp.UseVisualStyleBackColor = true;
+            this.buttonTemp.Click += new System.EventHandler(this.buttonTemp_Click);
+            // 
+            // buttonAll
+            // 
+            this.buttonAll.Location = new System.Drawing.Point(28, 84);
+            this.buttonAll.Name = "buttonAll";
+            this.buttonAll.Size = new System.Drawing.Size(75, 23);
+            this.buttonAll.TabIndex = 4;
+            this.buttonAll.Text = "All";
+            this.buttonAll.UseVisualStyleBackColor = true;
+            this.buttonAll.Click += new System.EventHandler(this.buttonAll_Click);
             // 
             // SensorData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonAll);
             this.Controls.Add(this.buttonTemp);
             this.Controls.Add(this.buttonDoor);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.richTextBoxhSensorData);
             this.Controls.Add(this.buttonBack);
             this.Name = "SensorData";
             this.Text = "SensorData";
@@ -90,8 +103,9 @@
         #endregion
 
         private System.Windows.Forms.Button buttonBack;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBoxhSensorData;
         private System.Windows.Forms.Button buttonDoor;
         private System.Windows.Forms.Button buttonTemp;
+        private System.Windows.Forms.Button buttonAll;
     }
 }

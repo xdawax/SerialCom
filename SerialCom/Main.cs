@@ -14,7 +14,6 @@ namespace SerialCom
         private const int REED = 0;
         private const int TEMP = 1;
 
-        public Queue packetQueue = new Queue();
         private byte packetSize = 6;
         private string comPort = "UNDEFINED";
 
@@ -66,7 +65,7 @@ namespace SerialCom
             SensorDataAccess.SaveData(packet);
         }
 
-        private void displayPacketContent(Packet packet)
+        public void displayPacketContent(Packet packet)
         {
             string sens;
 
@@ -111,8 +110,6 @@ namespace SerialCom
             if (packetList.Count > 0)
             {
                 richTextBoxRX.AppendText("The database contains the following packets: \n");
-
-
 
                 foreach (Packet packet in packetList)
                 {
