@@ -87,7 +87,7 @@
             // mySerialPort
             // 
             this.mySerialPort.BaudRate = 38400;
-            this.mySerialPort.PortName = "COM15";
+            this.mySerialPort.PortName = "COM17";
             this.mySerialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.mySerialPort_DataReceived);
             // 
             // Form1
