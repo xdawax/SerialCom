@@ -43,11 +43,13 @@ namespace SerialCom
 
         private Queue packetQueue = new Queue();
         private byte packetSize = 6;
-        
+        private string comPort = "UNDEFINED";
 
         public Form1()
         {
             InitializeComponent();
+
+            populateComPorts();
 
             if (!mySerialPort.IsOpen)
             {
@@ -60,6 +62,16 @@ namespace SerialCom
             }
         }
 
+        private void populateComPorts()
+        {
+            string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+
+            // Display each port name to the console.
+            foreach (string port in ports)
+            {
+                listBoxComPorts.Items.Add(port);
+            }
+        }
 
         private void mySerialPort_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
@@ -168,6 +180,19 @@ namespace SerialCom
                 char[] ch = new char[1];
                 ch[0] = e.KeyChar;
                 mySerialPort.Write(ch, 0, 1);
+            }
+        }
+
+        private void listBoxComPorts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (comPort == "UNDEFINED")
+            {
+                System.Windows.Forms.MessageBox.Show("No com port selected!");
             }
         }
     }

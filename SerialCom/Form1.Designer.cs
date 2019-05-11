@@ -35,6 +35,9 @@
             this.richTextBoxRX = new System.Windows.Forms.RichTextBox();
             this.checkBoxIM = new System.Windows.Forms.CheckBox();
             this.mySerialPort = new System.IO.Ports.SerialPort(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.listBoxComPorts = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSend
@@ -49,7 +52,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(640, 385);
+            this.buttonClear.Location = new System.Drawing.Point(295, 414);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 1;
@@ -90,11 +93,42 @@
             this.mySerialPort.PortName = "COM17";
             this.mySerialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.mySerialPort_DataReceived);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(637, 268);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Com Ports";
+            // 
+            // listBoxComPorts
+            // 
+            this.listBoxComPorts.FormattingEnabled = true;
+            this.listBoxComPorts.Location = new System.Drawing.Point(640, 284);
+            this.listBoxComPorts.Name = "listBoxComPorts";
+            this.listBoxComPorts.Size = new System.Drawing.Size(75, 95);
+            this.listBoxComPorts.TabIndex = 6;
+            this.listBoxComPorts.SelectedIndexChanged += new System.EventHandler(this.listBoxComPorts_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(640, 385);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Connect";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.listBoxComPorts);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxIM);
             this.Controls.Add(this.richTextBoxRX);
             this.Controls.Add(this.richTextBoxTX);
@@ -117,6 +151,9 @@
         private System.Windows.Forms.RichTextBox richTextBoxRX;
         private System.Windows.Forms.CheckBox checkBoxIM;
         private System.IO.Ports.SerialPort mySerialPort;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox listBoxComPorts;
+        private System.Windows.Forms.Button button1;
     }
 }
 
