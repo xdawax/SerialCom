@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SerialCom
 {
-
-
-
     public partial class Main : Form
     {
         private static int BUF_ADDRESS = 0;
         private static int BUF_TYPE = 1;
         private static int BUF_DATA0 = 2;
-        private static int BUF_DATA1 = 3;
-        private static int BUF_DATA2 = 4;
-        private static int BUF_DATA3 = 5;
-        private static int BUF_STAMP0 = 6;
-        private static int BUF_STAMP1 = 7;
-        private static int BUF_STAMP2 = 8;
-        private static int BUF_STAMP3 = 9;
-        private static int BUF_STAMP4 = 10;
+
         private const int REED = 0;
         private const int TEMP = 1;
 
@@ -114,12 +105,16 @@ namespace SerialCom
         {
             // visa data för samtliga element i kön
             richTextBoxRX.Clear();
+            List<Packet> packetList = new List<Packet>();
+            packetList = SensorDataAccess.LoadAll();
 
-            if (packetQueue.Count > 0)
+            if (packetList.Count > 0)
             {
-                richTextBoxRX.AppendText("The queue contains the following packets: \n");
+                richTextBoxRX.AppendText("The database contains the following packets: \n");
 
-                foreach (Packet packet in packetQueue)
+
+
+                foreach (Packet packet in packetList)
                 {
                     displayPacketContent(packet);
                 }

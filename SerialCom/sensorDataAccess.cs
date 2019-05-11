@@ -19,6 +19,15 @@ namespace SerialCom
             }
         }
 
+        public static List<Packet> GetSensorData(int sensorAddress)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Packet>("select Data from Sensor where Address = " + sensorAddress, new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static void SaveData(Packet packet)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
