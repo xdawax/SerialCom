@@ -11,6 +11,7 @@ namespace SerialCom
         private const int REED = 0;
         private const int TEMP = 1;
 
+        private byte selectedSensor = 255;
         private Main mainForm = null;
         public SensorData()
         {
@@ -25,7 +26,7 @@ namespace SerialCom
 
         private void SensorData_Load(object sender, EventArgs e)
         {
-
+            populateSensorList();
         }
 
         private void SensorData_FormClosed(object sender, FormClosedEventArgs e)
@@ -102,6 +103,31 @@ namespace SerialCom
         {
             List<Packet> packetList = new List<Packet>();
             packetList = SensorDataAccess.ListSensorTypeData(REED);
+            displayPacketList(packetList);
+        }
+
+
+        private void populateSensorList()
+        {
+            List<byte> addresses = new List<byte>();
+            addresses = SensorDataAccess.ListSensorAddresses();
+
+            foreach (byte address in addresses)
+            {
+                listBoxSensors.Items.Add(address.ToString());
+            }
+        }
+
+        private void listBoxSensors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = listBoxSensors.SelectedItem.ToString();
+            selectedSensor = Byte.Parse(selected);
+        }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            List<Packet> packetList = new List<Packet>();
+            packetList = SensorDataAccess.ListByAddress(selectedSensor);
             displayPacketList(packetList);
         }
     }

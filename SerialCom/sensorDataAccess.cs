@@ -37,6 +37,24 @@ namespace SerialCom
             }
         }
 
+        public static List<byte> ListSensorAddresses()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<byte>("SELECT DISTINCT Address FROM Sensor;", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static List<Packet> ListByAddress(byte address)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Packet>("SELECT * FROM Sensor WHERE Address = " + address + ";", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static void SaveData(Packet packet)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
