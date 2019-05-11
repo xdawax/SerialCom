@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 
@@ -27,6 +20,8 @@ namespace SerialCom
         private static int BUF_STAMP2 = 8;
         private static int BUF_STAMP3 = 9;
         private static int BUF_STAMP4 = 10;
+        private const int REED = 0;
+        private const int TEMP = 1;
 
         public Queue packetQueue = new Queue();
         private byte packetSize = 6;
@@ -73,11 +68,11 @@ namespace SerialCom
             Packet packet = new Packet();
 
             packet.Address = buf[BUF_ADDRESS];
-            packet.Type = (Packet.Sensor_t)buf[BUF_TYPE];
+            packet.Type = buf[BUF_TYPE];
 
-            packet.Data = (uint)BitConverter.ToInt32(buf, BUF_DATA0);
+            packet.Data = BitConverter.ToInt32(buf, BUF_DATA0);
 
-            packetQueue.Enqueue(packet);
+            SensorDataAccess.SaveData(packet);
         }
 
         private void displayPacketContent(Packet packet)
@@ -86,10 +81,10 @@ namespace SerialCom
 
             switch (packet.Type)
             {
-                case Packet.Sensor_t.REED:
+                case REED:
                     sens = "REED";
                     break;
-                case Packet.Sensor_t.TEMP:
+                case TEMP:
                     sens = "TEMP";
                     break;
                 default:

@@ -70,7 +70,7 @@
     <Compile Include="SensorData.Designer.cs">
       <DependentUpon>SensorData.cs</DependentUpon>
     </Compile>
-    <Compile Include="sensorDataAccess.cs" />
+    <Compile Include="SensorDataAccess.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

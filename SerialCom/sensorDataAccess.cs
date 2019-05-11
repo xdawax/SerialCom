@@ -1,16 +1,13 @@
 ﻿using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SerialCom
 {
-    public class sensorDataAccess
+    public class SensorDataAccess
     {
         public static List<Packet> LoadAll()
         {
@@ -26,7 +23,7 @@ namespace SerialCom
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Sensor (Address, Data, Type) values(@Address, @Data, @Type", packet);
+                cnn.Execute("insert into Sensor (Address, Data, Type) values (@Address, @Data, @Type)", packet);
             }
         }
 

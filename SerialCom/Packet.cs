@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SerialCom
+﻿namespace SerialCom
 {
     public class Packet
     {
@@ -14,9 +8,9 @@ namespace SerialCom
             TEMP                    // the data is read as centidegrees celcius i.e. 3275 == 32.75 deg C
         };
 
-        public byte Address { get; set; }
-        public Sensor_t Type { get; set; }
-        public uint Data { get; set; }
+        public int Address { get; set; }
+        public int Type { get; set; }
+        public int Data { get; set; }
 
 
         public string  Contents
