@@ -14,7 +14,7 @@ namespace SerialCom
 
 
 
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         public enum Sensor_t
         {   // 1 byte if < 256 sensors
@@ -41,15 +41,18 @@ namespace SerialCom
         private static int BUF_STAMP3 = 9;
         private static int BUF_STAMP4 = 10;
 
-        private Queue packetQueue = new Queue();
+        public Queue packetQueue = new Queue();
         private byte packetSize = 6;
         private string comPort = "UNDEFINED";
 
-        public Form1()
+        public Main()
         {
             InitializeComponent();
 
             populateComPorts();
+
+            buttonSend.Enabled = false;
+            checkBoxIM.Enabled = false;
         }
 
         private void populateComPorts()
@@ -196,7 +199,21 @@ namespace SerialCom
                 }
                 mySerialPort.PortName = comPort;
                 mySerialPort.Open();
+                buttonSend.Enabled = true;
+                checkBoxIM.Enabled = true;
             }
+        }
+
+        private void buttonDisplaySensors_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SensorData sensData = new SensorData(this);
+            sensData.Show();
+        }
+
+        public void closeSerialPort()
+        {
+            mySerialPort.Close();
         }
     }
 

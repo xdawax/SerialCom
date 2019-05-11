@@ -1,6 +1,6 @@
 ﻿namespace SerialCom
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxComPorts = new System.Windows.Forms.ListBox();
             this.buttonSelectCom = new System.Windows.Forms.Button();
+            this.buttonDisplaySensors = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSend
@@ -121,11 +122,22 @@
             this.buttonSelectCom.UseVisualStyleBackColor = true;
             this.buttonSelectCom.Click += new System.EventHandler(this.buttonSelectCom_Click);
             // 
-            // Form1
+            // buttonDisplaySensors
+            // 
+            this.buttonDisplaySensors.Location = new System.Drawing.Point(640, 104);
+            this.buttonDisplaySensors.Name = "buttonDisplaySensors";
+            this.buttonDisplaySensors.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisplaySensors.TabIndex = 8;
+            this.buttonDisplaySensors.Text = "Sensor Data";
+            this.buttonDisplaySensors.UseVisualStyleBackColor = true;
+            this.buttonDisplaySensors.Click += new System.EventHandler(this.buttonDisplaySensors_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonDisplaySensors);
             this.Controls.Add(this.buttonSelectCom);
             this.Controls.Add(this.listBoxComPorts);
             this.Controls.Add(this.label1);
@@ -134,8 +146,8 @@
             this.Controls.Add(this.richTextBoxTX);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonSend);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Main";
+            this.Text = "Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -150,10 +162,11 @@
         private System.Windows.Forms.RichTextBox richTextBoxTX;
         private System.Windows.Forms.RichTextBox richTextBoxRX;
         private System.Windows.Forms.CheckBox checkBoxIM;
-        private System.IO.Ports.SerialPort mySerialPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxComPorts;
         private System.Windows.Forms.Button buttonSelectCom;
+        private System.Windows.Forms.Button buttonDisplaySensors;
+        public System.IO.Ports.SerialPort mySerialPort;
     }
 }
 
