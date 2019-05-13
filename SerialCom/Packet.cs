@@ -10,14 +10,15 @@
 
         public byte Address { get; set; }
         public Sensor_t Type { get; set; }
-        public int Data { get; set; }
+        public uint Data { get; set; }
+        public byte Sequence { get; set; }
 
 
         public string  Contents
         {
             get
             {
-                return $"{ Address.ToString() } { Type.ToString() } { Data.ToString() }";
+                return $"{ Address.ToString() } { Type.ToString() } { Data.ToString() } { Sequence.ToString() }";
             }
         }
     }

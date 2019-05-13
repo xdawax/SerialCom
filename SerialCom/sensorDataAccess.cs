@@ -59,7 +59,7 @@ namespace SerialCom
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Sensor (Address, Data, Type) values (@Address, @Data, @Type)", packet);
+                cnn.Execute("insert into Sensor (Address, Data, Type, Sequence) values (@Address, @Data, @Type, @Sequence)", packet);
             }
         }
 

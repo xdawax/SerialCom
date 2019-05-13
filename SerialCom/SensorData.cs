@@ -55,7 +55,7 @@ namespace SerialCom
             richTextBoxhSensorData.Clear();
             if (packetList.Count > 0)
             {
-                richTextBoxhSensorData.AppendText("The database contains the following packets: \n");
+                richTextBoxhSensorData.AppendText("The database contains the following packets:\n(Address, Type, Data, Sequence)\n");
 
                 foreach (Packet packet in packetList)
                 {
@@ -71,25 +71,7 @@ namespace SerialCom
 
         public void displayPacketContent(Packet packet)
         {
-            string sens;
-
-            switch (packet.Type)
-            {
-                case Packet.Sensor_t.REED:
-                    sens = "REED";
-                    break;
-                case Packet.Sensor_t.TEMP:
-                    sens = "TEMP";
-                    break;
-                default:
-                    sens = "UNDEFINED";
-                    break;
-            }
-
-            richTextBoxhSensorData.AppendText("Packet contents: \n");
-            richTextBoxhSensorData.AppendText("Address: " + (packet.Address).ToString() + "\n");
-            richTextBoxhSensorData.AppendText("Type: " + sens + "\n");
-            richTextBoxhSensorData.AppendText("Data: " + (packet.Data).ToString() + "\n");
+            richTextBoxhSensorData.AppendText(packet.Contents + '\n');
         }
 
         private void buttonTemp_Click(object sender, EventArgs e)

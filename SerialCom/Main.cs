@@ -7,14 +7,12 @@ namespace SerialCom
 {
     public partial class Main : Form
     {
-        private static int BUF_ADDRESS = 0;
-        private static int BUF_TYPE = 1;
-        private static int BUF_DATA0 = 2;
+        private const int BUF_ADDRESS = 0;
+        private const int BUF_TYPE = 1;
+        private const int BUF_DATA0 = 2;
+        private const int BUF_SEQUENCE = 6;
 
-        private const int REED = 0;
-        private const int TEMP = 1;
-
-        private byte packetSize = 6;
+        private byte packetSize = 7;
         private string comPort = "UNDEFINED";
 
         public Main()
@@ -59,8 +57,8 @@ namespace SerialCom
 
             packet.Address = buf[BUF_ADDRESS];
             packet.Type = (Packet.Sensor_t)buf[BUF_TYPE];
-
-            packet.Data = BitConverter.ToInt32(buf, BUF_DATA0);
+            packet.Data = BitConverter.ToUInt32(buf, BUF_DATA0);
+            packet.Sequence = buf[BUF_SEQUENCE];
 
             SensorDataAccess.SaveData(packet);
         }
@@ -86,6 +84,7 @@ namespace SerialCom
             richTextBoxRX.AppendText("Address: " + (packet.Address).ToString() + "\n");
             richTextBoxRX.AppendText("Type: " + sens + "\n");
             richTextBoxRX.AppendText("Data: " + (packet.Data).ToString() + "\n");
+            richTextBoxRX.AppendText("Sequence: " + (packet.Sequence).ToString() + "\n");
         }
 
         private string bufToString(byte[] buf)
