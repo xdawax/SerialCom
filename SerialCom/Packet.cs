@@ -36,7 +36,7 @@
             this.Data = ACK;
         }
 
-        public byte[] PacketToBuf()
+        public byte[] PacketAsBuf()
         {
             byte[] buf = new byte[BUF_SIZE];
             buf[BUF_ADDRESS] = this.Address;

@@ -66,6 +66,10 @@ namespace SerialCom
         private void transmitACK(Packet packet)
         {
             packet.ToACK();
+            byte[] buf = packet.PacketAsBuf();
+            Int32 size = buf.Length;
+            mySerialPort.Write(buf, 0 ,size);
+
         }
 
         public void displayPacketContent(Packet packet)
