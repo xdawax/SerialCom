@@ -7,10 +7,7 @@ namespace SerialCom
 {
     public partial class Main : Form
     {
-        private const int BUF_ADDRESS = 0;
-        private const int BUF_TYPE = 1;
-        private const int BUF_DATA0 = 2;
-        private const int BUF_SEQUENCE = 6;
+
 
         private byte packetSize = 7;
         private string comPort = "UNDEFINED";
@@ -55,12 +52,20 @@ namespace SerialCom
         {
             Packet packet = new Packet();
 
-            packet.Address = buf[BUF_ADDRESS];
-            packet.Type = (Packet.Sensor_t)buf[BUF_TYPE];
-            packet.Data = BitConverter.ToUInt32(buf, BUF_DATA0);
-            packet.Sequence = buf[BUF_SEQUENCE];
+            packet.Address = buf[Packet.BUF_ADDRESS];
+            packet.Type = (Packet.Sensor_t)buf[Packet.BUF_TYPE];
+            packet.Data = BitConverter.ToUInt32(buf, Packet.BUF_DATA0);
+            packet.Sequence = buf[Packet.BUF_SEQUENCE];
 
             SensorDataAccess.SaveData(packet);
+            transmitACK(packet);
+
+
+        }
+
+        private void transmitACK(Packet packet)
+        {
+            packet.ToACK();
         }
 
         public void displayPacketContent(Packet packet)
