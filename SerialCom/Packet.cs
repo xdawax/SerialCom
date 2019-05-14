@@ -9,7 +9,8 @@
         };
 
         private const uint ACK = 0xFFFFFFFF;
-        private const uint BUF_SIZE = 7;
+        public const byte END_COM = 0xFF;
+        private const uint BUF_SIZE = 8;
         public const int BUF_ADDRESS = 0;
         public const int BUF_TYPE = 1;
         public const int BUF_DATA0 = 2;
@@ -17,6 +18,7 @@
         public const int BUF_DATA2 = 4;
         public const int BUF_DATA3 = 5;
         public const int BUF_SEQUENCE = 6;
+        public const int BUF_END_COM = 7;
         public byte Address { get; set; }
         public Sensor_t Type { get; set; }
         public uint Data { get; set; }
@@ -46,7 +48,7 @@
             buf[BUF_DATA2] = (byte)(this.Data >> (2 * 8));
             buf[BUF_DATA3] = (byte)(this.Data >> (3 * 8));
             buf[BUF_SEQUENCE] = this.Sequence;
-
+            buf[BUF_END_COM] = END_COM;
             return buf;
 
         }

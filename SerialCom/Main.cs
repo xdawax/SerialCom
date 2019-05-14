@@ -8,7 +8,7 @@ namespace SerialCom
     public partial class Main : Form
     {
 
-
+        
         private byte packetSize = 7;
         private string comPort = "UNDEFINED";
 
@@ -35,13 +35,16 @@ namespace SerialCom
 
         private void mySerialPort_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            byte received = 0;
+            if (!mySerialPort.IsOpen) return;
+            byte received_byte = 0;
+            byte index = 0;
             byte[] rxBuf = new byte[255];
 
-            for (int i = 0; i < packetSize; i++)
+            while (received_byte != Packet.END_COM)
             {
-                received = (byte)mySerialPort.ReadByte();
-                rxBuf[i] = received;
+                received_byte = (byte)mySerialPort.ReadByte();
+                rxBuf[index] = received_byte;
+                index++;
             }
 
             handleData(rxBuf);
@@ -59,8 +62,6 @@ namespace SerialCom
 
             SensorDataAccess.SaveData(packet);
             transmitACK(packet);
-
-
         }
 
         private void transmitACK(Packet packet)
@@ -68,6 +69,7 @@ namespace SerialCom
             packet.ToACK();
             byte[] buf = packet.PacketAsBuf();
             Int32 size = buf.Length;
+
             mySerialPort.Write(buf, 0 ,size);
 
         }
