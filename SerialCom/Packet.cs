@@ -10,7 +10,7 @@
 
         private const uint ACK = 0xFEFEFEFE;
         public const byte END_COM = 0xFF;
-        private const uint BUF_SIZE = 8;
+        private const uint BUF_SIZE = 9;
         public const int BUF_ADDRESS = 0;
         public const int BUF_TYPE = 1;
         public const int BUF_DATA0 = 2;
@@ -40,6 +40,16 @@
             this.Data = ACK;
         }
 
+        public void ToNACK()
+        {
+            this.Address = 0;
+            this.CheckSum = 0;
+            this.Data = 0;
+            this.Sequence = 0;
+            this.Type = 0;
+            this.CheckSum = 0;
+        }
+
         public byte[] PacketAsBuf()
         {
             byte[] buf = new byte[BUF_SIZE];
@@ -59,7 +69,7 @@
         public byte checkSum()
         {
             byte[] buf = this.PacketAsBuf();
-            int size = buf.Length - 1;
+            int size = buf.Length - 2;
             uint checkSum = 0;
 
             for (int i = 0; i < size; i++)

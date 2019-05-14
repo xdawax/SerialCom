@@ -58,8 +58,28 @@ namespace SerialCom
             packet.Data = BitConverter.ToUInt32(buf, Packet.BUF_DATA0);
             packet.Sequence = buf[Packet.BUF_SEQUENCE];
             packet.CheckSum = buf[Packet.BUF_CHECKSUM];
-            SensorDataAccess.SaveData(packet);
-            transmitACK(packet);
+            byte debug_sum = packet.checkSum();
+
+            // if the checksum is correct store the packet in the db and send ack
+            if (packet.checkSum() == packet.CheckSum)
+            {
+                SensorDataAccess.SaveData(packet);
+                transmitACK(packet);
+            } else
+            {
+                transmitNACK(packet);
+            }
+        }
+
+        private void transmitNACK(Packet packet)
+        {
+            if (!mySerialPort.IsOpen) return;
+            packet.ToNACK();
+
+            byte[] buf = packet.PacketAsBuf();
+            Int32 size = buf.Length;
+
+            mySerialPort.Write(buf, 0, size);
         }
 
         private void transmitACK(Packet packet)
