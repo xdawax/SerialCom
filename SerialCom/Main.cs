@@ -155,7 +155,10 @@ namespace SerialCom
 
         private void buttonSelectCom_Click(object sender, EventArgs e)
         {
-            string port = comPort;
+            if (mySerialPort.PortName == comPort) {
+                return;
+            }
+
             if (comPort == "UNDEFINED")
             {
                 MessageBox.Show("No com port selected!");
@@ -166,8 +169,11 @@ namespace SerialCom
                 {
                     mySerialPort.Close();
                 }
+                
                 mySerialPort.PortName = comPort;
                 mySerialPort.Open();
+                mySerialPort.DiscardInBuffer();
+                mySerialPort.DiscardOutBuffer();
                 buttonSend.Enabled = true;
                 checkBoxIM.Enabled = true;
             }
