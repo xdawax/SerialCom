@@ -39,6 +39,7 @@
             this.listBoxComPorts = new System.Windows.Forms.ListBox();
             this.buttonSelectCom = new System.Windows.Forms.Button();
             this.buttonDisplaySensors = new System.Windows.Forms.Button();
+            this.buttonDebug = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSend
@@ -132,11 +133,22 @@
             this.buttonDisplaySensors.UseVisualStyleBackColor = true;
             this.buttonDisplaySensors.Click += new System.EventHandler(this.buttonDisplaySensors_Click);
             // 
+            // buttonDebug
+            // 
+            this.buttonDebug.Location = new System.Drawing.Point(640, 168);
+            this.buttonDebug.Name = "buttonDebug";
+            this.buttonDebug.Size = new System.Drawing.Size(75, 40);
+            this.buttonDebug.TabIndex = 9;
+            this.buttonDebug.Text = "Send Debug Packet";
+            this.buttonDebug.UseVisualStyleBackColor = true;
+            this.buttonDebug.Click += new System.EventHandler(this.buttonDebug_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonDebug);
             this.Controls.Add(this.buttonDisplaySensors);
             this.Controls.Add(this.buttonSelectCom);
             this.Controls.Add(this.listBoxComPorts);
@@ -167,6 +179,7 @@
         private System.Windows.Forms.Button buttonSelectCom;
         private System.Windows.Forms.Button buttonDisplaySensors;
         public System.IO.Ports.SerialPort mySerialPort;
+        private System.Windows.Forms.Button buttonDebug;
     }
 }
 

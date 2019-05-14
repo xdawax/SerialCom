@@ -8,7 +8,7 @@
             TEMP                    // the data is read as centidegrees celcius i.e. 3275 == 32.75 deg C
         };
 
-        private const uint ACK = 0xFFFFFFFF;
+        private const uint ACK = 0xFEFEFEFE;
         public const byte END_COM = 0xFF;
         private const uint BUF_SIZE = 8;
         public const int BUF_ADDRESS = 0;

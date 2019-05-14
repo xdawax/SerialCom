@@ -48,6 +48,7 @@ namespace SerialCom
             }
 
             handleData(rxBuf);
+            
             this.Invoke(new EventHandler(displayText));
         }
 
@@ -59,7 +60,6 @@ namespace SerialCom
             packet.Type = (Packet.Sensor_t)buf[Packet.BUF_TYPE];
             packet.Data = BitConverter.ToUInt32(buf, Packet.BUF_DATA0);
             packet.Sequence = buf[Packet.BUF_SEQUENCE];
-
             SensorDataAccess.SaveData(packet);
             transmitACK(packet);
         }
@@ -76,26 +76,8 @@ namespace SerialCom
 
         public void displayPacketContent(Packet packet)
         {
-            string sens;
-
-            switch (packet.Type)
-            {
-                case Packet.Sensor_t.REED:
-                    sens = "REED";
-                    break;
-                case Packet.Sensor_t.TEMP:
-                    sens = "TEMP";
-                    break;
-                default:
-                    sens = "UNDEFINED";
-                    break;
-            }
-
-            richTextBoxRX.AppendText("Packet contents: \n");
-            richTextBoxRX.AppendText("Address: " + (packet.Address).ToString() + "\n");
-            richTextBoxRX.AppendText("Type: " + sens + "\n");
-            richTextBoxRX.AppendText("Data: " + (packet.Data).ToString() + "\n");
-            richTextBoxRX.AppendText("Sequence: " + (packet.Sequence).ToString() + "\n");
+            richTextBoxRX.AppendText(packet.Contents);
+            richTextBoxRX.AppendText("\n");
         }
 
         private string bufToString(byte[] buf)
@@ -165,7 +147,10 @@ namespace SerialCom
 
         private void listBoxComPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comPort = listBoxComPorts.SelectedItem.ToString();
+            if (listBoxComPorts.SelectedItem != null)
+            {
+                comPort = listBoxComPorts.SelectedItem.ToString();
+            }
         }
 
         private void buttonSelectCom_Click(object sender, EventArgs e)
@@ -198,6 +183,17 @@ namespace SerialCom
         public void closeSerialPort()
         {
             mySerialPort.Close();
+        }
+
+        private void buttonDebug_Click(object sender, EventArgs e)
+        {
+            Packet packet = new Packet();
+            packet.Address = 9;
+            packet.Type = Packet.Sensor_t.REED;
+            packet.Sequence = 123;
+            packet.ToACK();
+
+            transmitACK(packet);
         }
     }
 
