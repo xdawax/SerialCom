@@ -18,18 +18,20 @@
         public const int BUF_DATA2 = 4;
         public const int BUF_DATA3 = 5;
         public const int BUF_SEQUENCE = 6;
-        public const int BUF_END_COM = 7;
+        public const int BUF_CHECKSUM = 7;
+        public const int BUF_END_COM = 8;
         public byte Address { get; set; }
         public Sensor_t Type { get; set; }
         public uint Data { get; set; }
         public byte Sequence { get; set; }
+        public byte CheckSum { get; set; }
 
 
         public string  Contents
         {
             get
             {
-                return $"{ Address.ToString() } { Type.ToString() } { Data.ToString() } { Sequence.ToString() }";
+                return $"{ Address.ToString() } { Type.ToString() } { Data.ToString() } { Sequence.ToString() } { CheckSum.ToString() }";
             }
         }
 
@@ -48,9 +50,35 @@
             buf[BUF_DATA2] = (byte)(this.Data >> (2 * 8));
             buf[BUF_DATA3] = (byte)(this.Data >> (3 * 8));
             buf[BUF_SEQUENCE] = this.Sequence;
+            buf[BUF_CHECKSUM] = this.CheckSum;
             buf[BUF_END_COM] = END_COM;
             return buf;
 
         }
+
+        public byte checkSum()
+        {
+            byte[] buf = this.PacketAsBuf();
+            int size = buf.Length - 1;
+            uint checkSum = 0;
+
+            for (int i = 0; i < size; i++)
+            {
+                checkSum += buf[i];
+            }
+
+            return (byte)checkSum;
+        }
+
+        public bool correctCheckSum()
+        {
+            return (this.CheckSum == this.checkSum());
+        }
+
+        public void setCheckSum()
+        {
+            this.CheckSum = this.checkSum();
+        }
+
     }
 }

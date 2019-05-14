@@ -7,9 +7,6 @@ namespace SerialCom
 {
     public partial class Main : Form
     {
-
-        
-        private byte packetSize = 7;
         private string comPort = "UNDEFINED";
 
         public Main()
@@ -60,6 +57,7 @@ namespace SerialCom
             packet.Type = (Packet.Sensor_t)buf[Packet.BUF_TYPE];
             packet.Data = BitConverter.ToUInt32(buf, Packet.BUF_DATA0);
             packet.Sequence = buf[Packet.BUF_SEQUENCE];
+            packet.CheckSum = buf[Packet.BUF_CHECKSUM];
             SensorDataAccess.SaveData(packet);
             transmitACK(packet);
         }
