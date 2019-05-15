@@ -24,7 +24,7 @@ namespace SerialCom
         private void InitConnections()
         {
             string[] ports = System.IO.Ports.SerialPort.GetPortNames();
-            
+
             // Display each port name to the console.
             foreach (string port in ports)
             {
@@ -112,7 +112,7 @@ namespace SerialCom
                 }
             }
         }
-        
+
 
         private void buttonDisplaySensors_Click(object sender, EventArgs e)
         {
@@ -120,12 +120,5 @@ namespace SerialCom
             SensorData sensData = new SensorData(this);
             sensData.Show();
         }
-
-
-        private void ButtonSelectCom2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
-
 }
