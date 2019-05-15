@@ -70,23 +70,14 @@ namespace SerialCom
             }
 
             handleData(rxBuf);
-
-           //Main.displayText();
         }
 
         private void handleData(byte[] buf)
         {
-            Packet packet = new Packet();
-
-            packet.Address = buf[Packet.BUF_ADDRESS];
-            packet.Type = (Packet.Sensor_t)buf[Packet.BUF_TYPE];
-            packet.Data = BitConverter.ToUInt32(buf, Packet.BUF_DATA0);
-            packet.Sequence = buf[Packet.BUF_SEQUENCE];
-            packet.CheckSum = buf[Packet.BUF_CHECKSUM];
-            byte debug_sum = packet.checkSum();
+            Packet packet = new Packet(buf);
 
             // if the checksum is correct store the packet in the db and send ack
-            if (packet.checkSum() == packet.CheckSum)
+            if (packet.correctCheckSum())
             {
                 SensorDataAccess.SaveData(packet);
                 transmitACK(packet);

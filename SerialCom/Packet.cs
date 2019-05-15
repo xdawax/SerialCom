@@ -34,6 +34,16 @@ namespace SerialCom
         {
             this.CreationDate = DateTime.Now.ToString();
         }
+
+        public Packet(byte[] buf)
+        {
+            this.CreationDate = DateTime.Now.ToString();
+            this.Address = buf[Packet.BUF_ADDRESS];
+            this.Type = (Packet.Sensor_t)buf[Packet.BUF_TYPE];
+            this.Data = BitConverter.ToUInt32(buf, Packet.BUF_DATA0);
+            this.Sequence = buf[Packet.BUF_SEQUENCE];
+            this.CheckSum = buf[Packet.BUF_CHECKSUM];
+        }
         public string  Contents
         {
             get
