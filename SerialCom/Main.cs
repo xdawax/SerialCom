@@ -30,16 +30,16 @@ namespace SerialCom
             }
         }
 
-        private void mySerialPort_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            if (!mySerialPort.IsOpen) return;
+            if (!serialPort1.IsOpen) return;
             byte received_byte = 0;
             byte index = 0;
             byte[] rxBuf = new byte[255];
 
             while (received_byte != Packet.END_COM)
             {
-                received_byte = (byte)mySerialPort.ReadByte();
+                received_byte = (byte)serialPort1.ReadByte();
                 rxBuf[index] = received_byte;
                 index++;
             }
@@ -73,23 +73,23 @@ namespace SerialCom
 
         private void transmitNACK(Packet packet)
         {
-            if (!mySerialPort.IsOpen) return;
+            if (!serialPort1.IsOpen) return;
             packet.ToNACK();
 
             byte[] buf = packet.PacketAsBuf();
             Int32 size = buf.Length;
 
-            mySerialPort.Write(buf, 0, size);
+            serialPort1.Write(buf, 0, size);
         }
 
         private void transmitACK(Packet packet)
         {
-            if (!mySerialPort.IsOpen) return;
+            if (!serialPort1.IsOpen) return;
             packet.ToACK();
             byte[] buf = packet.PacketAsBuf();
             Int32 size = buf.Length;
 
-            mySerialPort.Write(buf, 0 ,size);
+            serialPort1.Write(buf, 0 ,size);
         }
 
         public void displayPacketContent(Packet packet)
@@ -139,7 +139,7 @@ namespace SerialCom
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-            mySerialPort.Write(richTextBoxTX.Text);
+            serialPort1.Write(richTextBoxTX.Text);
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -150,16 +150,16 @@ namespace SerialCom
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            mySerialPort.Close();
+            serialPort1.Close();
         }
 
         private void richTextBoxTX_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (mySerialPort.IsOpen && checkBoxIM.Checked)
+            if (serialPort1.IsOpen && checkBoxIM.Checked)
             {
                 char[] ch = new char[1];
                 ch[0] = e.KeyChar;
-                mySerialPort.Write(ch, 0, 1);
+                serialPort1.Write(ch, 0, 1);
             }
         }
 
@@ -173,7 +173,7 @@ namespace SerialCom
 
         private void buttonSelectCom_Click(object sender, EventArgs e)
         {
-            if (mySerialPort.PortName == comPort) {
+            if (serialPort1.PortName == comPort) {
                 return;
             }
 
@@ -183,15 +183,15 @@ namespace SerialCom
             }
             else
             {
-                if (mySerialPort.IsOpen)
+                if (serialPort1.IsOpen)
                 {
-                    mySerialPort.Close();
+                    serialPort1.Close();
                 }
                 
-                mySerialPort.PortName = comPort;
-                mySerialPort.Open();
-                mySerialPort.DiscardInBuffer();
-                mySerialPort.DiscardOutBuffer();
+                serialPort1.PortName = comPort;
+                serialPort1.Open();
+                serialPort1.DiscardInBuffer();
+                serialPort1.DiscardOutBuffer();
                 buttonSend.Enabled = true;
                 checkBoxIM.Enabled = true;
             }
@@ -206,7 +206,7 @@ namespace SerialCom
 
         public void closeSerialPort()
         {
-            mySerialPort.Close();
+            serialPort1.Close();
         }
 
         private void buttonDebug_Click(object sender, EventArgs e)
@@ -218,6 +218,11 @@ namespace SerialCom
             packet.ToACK();
 
             transmitACK(packet);
+        }
+
+        private void ButtonSelectCom2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

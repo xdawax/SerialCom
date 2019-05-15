@@ -34,17 +34,19 @@
             this.richTextBoxTX = new System.Windows.Forms.RichTextBox();
             this.richTextBoxRX = new System.Windows.Forms.RichTextBox();
             this.checkBoxIM = new System.Windows.Forms.CheckBox();
-            this.mySerialPort = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxComPorts = new System.Windows.Forms.ListBox();
-            this.buttonSelectCom = new System.Windows.Forms.Button();
+            this.buttonSelectCom1 = new System.Windows.Forms.Button();
             this.buttonDisplaySensors = new System.Windows.Forms.Button();
             this.buttonDebug = new System.Windows.Forms.Button();
+            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
+            this.buttonSelectCom2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSend
             // 
-            this.buttonSend.Location = new System.Drawing.Point(640, 12);
+            this.buttonSend.Location = new System.Drawing.Point(617, 12);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(75, 23);
             this.buttonSend.TabIndex = 0;
@@ -82,50 +84,50 @@
             // checkBoxIM
             // 
             this.checkBoxIM.AutoSize = true;
-            this.checkBoxIM.Location = new System.Drawing.Point(640, 42);
+            this.checkBoxIM.Location = new System.Drawing.Point(617, 35);
             this.checkBoxIM.Name = "checkBoxIM";
             this.checkBoxIM.Size = new System.Drawing.Size(38, 17);
             this.checkBoxIM.TabIndex = 4;
             this.checkBoxIM.Text = "IM";
             this.checkBoxIM.UseVisualStyleBackColor = true;
             // 
-            // mySerialPort
+            // serialPort1
             // 
-            this.mySerialPort.BaudRate = 38400;
-            this.mySerialPort.PortName = "UNDEFINED";
-            this.mySerialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.mySerialPort_DataReceived);
+            this.serialPort1.BaudRate = 38400;
+            this.serialPort1.PortName = "UNDEFINED";
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(637, 268);
+            this.label1.Location = new System.Drawing.Point(614, 266);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Com Ports";
+            this.label1.Text = "Com";
             // 
             // listBoxComPorts
             // 
             this.listBoxComPorts.FormattingEnabled = true;
-            this.listBoxComPorts.Location = new System.Drawing.Point(640, 284);
+            this.listBoxComPorts.Location = new System.Drawing.Point(617, 282);
             this.listBoxComPorts.Name = "listBoxComPorts";
             this.listBoxComPorts.Size = new System.Drawing.Size(75, 95);
             this.listBoxComPorts.TabIndex = 6;
             this.listBoxComPorts.SelectedIndexChanged += new System.EventHandler(this.listBoxComPorts_SelectedIndexChanged);
             // 
-            // buttonSelectCom
+            // buttonSelectCom1
             // 
-            this.buttonSelectCom.Location = new System.Drawing.Point(640, 385);
-            this.buttonSelectCom.Name = "buttonSelectCom";
-            this.buttonSelectCom.Size = new System.Drawing.Size(75, 23);
-            this.buttonSelectCom.TabIndex = 7;
-            this.buttonSelectCom.Text = "Connect";
-            this.buttonSelectCom.UseVisualStyleBackColor = true;
-            this.buttonSelectCom.Click += new System.EventHandler(this.buttonSelectCom_Click);
+            this.buttonSelectCom1.Location = new System.Drawing.Point(698, 282);
+            this.buttonSelectCom1.Name = "buttonSelectCom1";
+            this.buttonSelectCom1.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectCom1.TabIndex = 7;
+            this.buttonSelectCom1.Text = "Port 1";
+            this.buttonSelectCom1.UseVisualStyleBackColor = true;
+            this.buttonSelectCom1.Click += new System.EventHandler(this.buttonSelectCom_Click);
             // 
             // buttonDisplaySensors
             // 
-            this.buttonDisplaySensors.Location = new System.Drawing.Point(640, 104);
+            this.buttonDisplaySensors.Location = new System.Drawing.Point(617, 101);
             this.buttonDisplaySensors.Name = "buttonDisplaySensors";
             this.buttonDisplaySensors.Size = new System.Drawing.Size(75, 23);
             this.buttonDisplaySensors.TabIndex = 8;
@@ -135,7 +137,7 @@
             // 
             // buttonDebug
             // 
-            this.buttonDebug.Location = new System.Drawing.Point(640, 168);
+            this.buttonDebug.Location = new System.Drawing.Point(617, 167);
             this.buttonDebug.Name = "buttonDebug";
             this.buttonDebug.Size = new System.Drawing.Size(75, 40);
             this.buttonDebug.TabIndex = 9;
@@ -143,14 +145,29 @@
             this.buttonDebug.UseVisualStyleBackColor = true;
             this.buttonDebug.Click += new System.EventHandler(this.buttonDebug_Click);
             // 
+            // serialPort2
+            // 
+            this.serialPort2.BaudRate = 38400;
+            // 
+            // buttonSelectCom2
+            // 
+            this.buttonSelectCom2.Location = new System.Drawing.Point(698, 311);
+            this.buttonSelectCom2.Name = "buttonSelectCom2";
+            this.buttonSelectCom2.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectCom2.TabIndex = 10;
+            this.buttonSelectCom2.Text = "Port 2";
+            this.buttonSelectCom2.UseVisualStyleBackColor = true;
+            this.buttonSelectCom2.Click += new System.EventHandler(this.ButtonSelectCom2_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonSelectCom2);
             this.Controls.Add(this.buttonDebug);
             this.Controls.Add(this.buttonDisplaySensors);
-            this.Controls.Add(this.buttonSelectCom);
+            this.Controls.Add(this.buttonSelectCom1);
             this.Controls.Add(this.listBoxComPorts);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxIM);
@@ -176,10 +193,12 @@
         private System.Windows.Forms.CheckBox checkBoxIM;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxComPorts;
-        private System.Windows.Forms.Button buttonSelectCom;
+        private System.Windows.Forms.Button buttonSelectCom1;
         private System.Windows.Forms.Button buttonDisplaySensors;
-        public System.IO.Ports.SerialPort mySerialPort;
+        public System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button buttonDebug;
+        private System.IO.Ports.SerialPort serialPort2;
+        private System.Windows.Forms.Button buttonSelectCom2;
     }
 }
 

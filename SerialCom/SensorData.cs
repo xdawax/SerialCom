@@ -31,9 +31,9 @@ namespace SerialCom
 
         private void SensorData_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.mainForm.mySerialPort.IsOpen)
+            if (this.mainForm.serialPort1.IsOpen)
             {
-                this.mainForm.mySerialPort.Close();
+                this.mainForm.serialPort1.Close();
             }
         }
 
@@ -102,8 +102,11 @@ namespace SerialCom
 
         private void listBoxSensors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selected = listBoxSensors.SelectedItem.ToString();
-            selectedSensor = Byte.Parse(selected);
+            if (listBoxSensors.SelectedItem != null)
+            {
+                string selected = listBoxSensors.SelectedItem.ToString();
+                selectedSensor = Byte.Parse(selected);
+            }
         }
 
         private void buttonSelect_Click(object sender, EventArgs e)
