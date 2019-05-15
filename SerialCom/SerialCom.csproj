@@ -71,6 +71,7 @@
       <DependentUpon>SensorData.cs</DependentUpon>
     </Compile>
     <Compile Include="SensorDataAccess.cs" />
+    <Compile Include="SerialCom.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

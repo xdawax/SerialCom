@@ -28,19 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.buttonSend = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.richTextBoxTX = new System.Windows.Forms.RichTextBox();
             this.richTextBoxRX = new System.Windows.Forms.RichTextBox();
             this.checkBoxIM = new System.Windows.Forms.CheckBox();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxComPorts = new System.Windows.Forms.ListBox();
             this.buttonSelectCom1 = new System.Windows.Forms.Button();
             this.buttonDisplaySensors = new System.Windows.Forms.Button();
             this.buttonDebug = new System.Windows.Forms.Button();
-            this.serialPort2 = new System.IO.Ports.SerialPort(this.components);
             this.buttonSelectCom2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -91,12 +88,6 @@
             this.checkBoxIM.Text = "IM";
             this.checkBoxIM.UseVisualStyleBackColor = true;
             // 
-            // serialPort1
-            // 
-            this.serialPort1.BaudRate = 38400;
-            this.serialPort1.PortName = "UNDEFINED";
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -145,10 +136,6 @@
             this.buttonDebug.UseVisualStyleBackColor = true;
             this.buttonDebug.Click += new System.EventHandler(this.buttonDebug_Click);
             // 
-            // serialPort2
-            // 
-            this.serialPort2.BaudRate = 38400;
-            // 
             // buttonSelectCom2
             // 
             this.buttonSelectCom2.Location = new System.Drawing.Point(698, 311);
@@ -195,9 +182,7 @@
         private System.Windows.Forms.ListBox listBoxComPorts;
         private System.Windows.Forms.Button buttonSelectCom1;
         private System.Windows.Forms.Button buttonDisplaySensors;
-        public System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button buttonDebug;
-        private System.IO.Ports.SerialPort serialPort2;
         private System.Windows.Forms.Button buttonSelectCom2;
     }
 }

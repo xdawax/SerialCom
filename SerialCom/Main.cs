@@ -2,21 +2,70 @@
 using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Ports;
 
 namespace SerialCom
 {
     public partial class Main : Form
     {
+        private const int baudRate = 38400;
+        private const Parity parity = Parity.None;
+        private const StopBits stopBits = StopBits.One;
+
         private string comPort = "UNDEFINED";
+        private List<SerialCom> connections = new List<SerialCom>();
 
         public Main()
         {
             InitializeComponent();
-
-            populateComPorts();
+            InitConnections();
+            OpenConnections();
+            displayConnections();
 
             buttonSend.Enabled = false;
             checkBoxIM.Enabled = false;
+        }
+
+        private void InitConnections()
+        {
+            string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+            
+            // Display each port name to the console.
+            foreach (string port in ports)
+            {
+                SerialCom con = new SerialCom(port, baudRate, parity, stopBits);
+                connections.Add(con);
+            }
+        }
+
+        private void OpenConnections()
+        {
+            foreach (SerialCom con in connections)
+            {
+                if (!con.isOpen())
+                {
+                    con.openPort();
+                }
+            }
+        }
+
+        private void nextConnection()
+        {
+
+        }
+
+        private void displayConnections()
+        {
+            richTextBoxRX.Clear();
+            richTextBoxRX.AppendText("Connected units:\n");
+            foreach (SerialCom connection in connections)
+            {
+                if (connection.isOpen())
+                {
+                    richTextBoxRX.AppendText(connection.getPortName());
+                    richTextBoxRX.AppendText("\n");
+                }
+            }
         }
 
         private void populateComPorts()
@@ -31,7 +80,7 @@ namespace SerialCom
         }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
+        {/*
             if (!serialPort1.IsOpen) return;
             byte received_byte = 0;
             byte index = 0;
@@ -46,11 +95,11 @@ namespace SerialCom
 
             handleData(rxBuf);
             
-            this.Invoke(new EventHandler(displayText));
+            this.Invoke(new EventHandler(displayText));*/
         }
 
         private void handleData(byte[] buf)
-        {
+        {/*
             Packet packet = new Packet();
 
             packet.Address = buf[Packet.BUF_ADDRESS];
@@ -68,28 +117,28 @@ namespace SerialCom
             } else
             {
                 transmitNACK(packet);
-            }
+            }*/
         }
 
         private void transmitNACK(Packet packet)
-        {
+        {/*
             if (!serialPort1.IsOpen) return;
             packet.ToNACK();
 
             byte[] buf = packet.PacketAsBuf();
             Int32 size = buf.Length;
 
-            serialPort1.Write(buf, 0, size);
+            serialPort1.Write(buf, 0, size);*/
         }
 
         private void transmitACK(Packet packet)
-        {
+        {/*
             if (!serialPort1.IsOpen) return;
             packet.ToACK();
             byte[] buf = packet.PacketAsBuf();
             Int32 size = buf.Length;
 
-            serialPort1.Write(buf, 0 ,size);
+            serialPort1.Write(buf, 0 ,size);*/
         }
 
         public void displayPacketContent(Packet packet)
@@ -98,17 +147,6 @@ namespace SerialCom
             richTextBoxRX.AppendText("\n");
         }
 
-        private string bufToString(byte[] buf)
-        {
-            string bufString = string.Empty;
-
-            foreach (byte b in buf)
-            {
-                bufString += (Char)b;
-            }
-
-            return bufString;
-        }
 
         private void displayText(object o, EventArgs e)
         {
@@ -139,7 +177,7 @@ namespace SerialCom
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-            serialPort1.Write(richTextBoxTX.Text);
+           // serialPort1.Write(richTextBoxTX.Text);
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -150,29 +188,29 @@ namespace SerialCom
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            serialPort1.Close();
+            //serialPort1.Close();
         }
-
+        
         private void richTextBoxTX_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        {/*
             if (serialPort1.IsOpen && checkBoxIM.Checked)
             {
                 char[] ch = new char[1];
                 ch[0] = e.KeyChar;
                 serialPort1.Write(ch, 0, 1);
-            }
+            }*/
         }
 
         private void listBoxComPorts_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { /*
             if (listBoxComPorts.SelectedItem != null)
             {
                 comPort = listBoxComPorts.SelectedItem.ToString();
-            }
+            }*/
         }
 
         private void buttonSelectCom_Click(object sender, EventArgs e)
-        {
+        { /*
             if (serialPort1.PortName == comPort) {
                 return;
             }
@@ -194,7 +232,7 @@ namespace SerialCom
                 serialPort1.DiscardOutBuffer();
                 buttonSend.Enabled = true;
                 checkBoxIM.Enabled = true;
-            }
+            }*/
         }
 
         private void buttonDisplaySensors_Click(object sender, EventArgs e)
@@ -203,11 +241,11 @@ namespace SerialCom
             SensorData sensData = new SensorData(this);
             sensData.Show();
         }
-
+        /*
         public void closeSerialPort()
         {
             serialPort1.Close();
-        }
+        }*/
 
         private void buttonDebug_Click(object sender, EventArgs e)
         {

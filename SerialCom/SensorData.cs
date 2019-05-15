@@ -31,10 +31,10 @@ namespace SerialCom
 
         private void SensorData_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.mainForm.serialPort1.IsOpen)
+           /* if (this.mainForm.serialPort1.IsOpen)
             {
                 this.mainForm.serialPort1.Close();
-            }
+            }*/
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -55,7 +55,8 @@ namespace SerialCom
             richTextBoxhSensorData.Clear();
             if (packetList.Count > 0)
             {
-                richTextBoxhSensorData.AppendText("The database contains the following packets:\n(Address, Type, Data, Sequence)\n");
+                richTextBoxhSensorData.AppendText("The database contains the following packets:\n(Address, Type, " +
+                    "Data, Sequence, Empty Checksum, Creation Date)\n");
 
                 foreach (Packet packet in packetList)
                 {

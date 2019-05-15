@@ -1,4 +1,6 @@
-﻿namespace SerialCom
+﻿using System;
+
+namespace SerialCom
 {
     public class Packet
     {
@@ -8,6 +10,7 @@
             TEMP                    // the data is read as centidegrees celcius i.e. 3275 == 32.75 deg C
         };
 
+        
         private const uint ACK = 0xFEFEFEFE;
         public const byte END_COM = 0xFF;
         private const uint BUF_SIZE = 9;
@@ -25,13 +28,18 @@
         public uint Data { get; set; }
         public byte Sequence { get; set; }
         public byte CheckSum { get; set; }
+        public string CreationDate { get; set; }
 
-
+        public Packet()
+        {
+            this.CreationDate = DateTime.Now.ToString();
+        }
         public string  Contents
         {
             get
             {
-                return $"{ Address.ToString() } { Type.ToString() } { Data.ToString() } { Sequence.ToString() } { CheckSum.ToString() }";
+                return $"{ Address.ToString() } { Type.ToString() } " +
+                    $"{ Data.ToString() } { Sequence.ToString() } { CheckSum.ToString() } { CreationDate.ToString() }";
             }
         }
 
